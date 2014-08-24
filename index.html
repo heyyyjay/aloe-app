@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Aloe App</title>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+	<!-- UIKit 2.9.0 -->
+	<link rel="stylesheet" href="lib/uikit-2.9.0/css/uikit.min.css" />
+	<script src="lib/uikit-2.9.0/js/uikit.min.js"></script>
+
+	<script src="js/Task.js"></script>
+	<script src="js/TaskManager.js"></script>
+	<script src="js/setup.js"></script>
+
+</head>
+
+<body>
+
+<div class="uk-grid" id="content">
+	<h1 class="uk-width-1-1">Aloe App Task Manager</h1>
+</div>
+
+<form class="uk-form">
+	<fieldset data-uk-margin>
+		<select class="uk-form-width-small">
+			<option>High</option>
+			<option>Mid</option>
+			<option>Low</option>
+		</select>
+		<input class="uk-form-width-large" type="text" placeholder="New task" />
+		<select class="uk-form-width-small">
+			<option>Purple</option>
+			<option>Blue</option>
+		</select>
+		<input class="uk-form-width-small" type="text" placeholder="days til due" />
+		<button class="uk-button"><i class="uk-icon-plus"></i> Add</button>
+	</fieldset>
+</form>
+
+</body>
+
+</html>

@@ -1,0 +1,6 @@
+{
+	"priority": "high",
+	"description": "This is a kewl description.",
+	"dueDate": 1408924800, // UNIX TIMESTAMP?
+	"category": 0 // no colors used, arbitrary - use numbers
+}
