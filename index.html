@@ -24,21 +24,46 @@
 </div>
 
 <form class="uk-form">
-	<fieldset data-uk-margin>
-		<select class="uk-form-width-small">
-			<option>High</option>
-			<option>Mid</option>
-			<option>Low</option>
-		</select>
-		<input class="uk-form-width-large" type="text" placeholder="New task" />
-		<select class="uk-form-width-small">
-			<option>Purple</option>
-			<option>Blue</option>
-		</select>
-		<input class="uk-form-width-small" type="text" placeholder="days til due" />
-		<button class="uk-button"><i class="uk-icon-plus"></i> Add</button>
-	</fieldset>
+	<div id="addTaskError"></div>
+	<select name="priority">
+	    <option value="high">High</option>
+	    <option value="mid" selected="selected">Mid</option>
+	    <option value="low">Low</option>
+	</select>
+	<input type="text" name="descr" placeholder="description" id="descr">
+	<select name="category">
+	    <option value="0" selected="selected">Purple</option>
+	    <option value="1">Green</option>
+	    <option value="2">Blue</option>
+	    <option value="3">Yellow</option>
+	    <option value="4">Pink</option>
+	    <option value="5">Orange</option>
+	</select>
+	<button id="addTask" class="uk-button" type="submit" name="addTask"><i class="uk-icon-plus"></i> Add</button>
 </form>
+
+
+<script>
+
+	$( "form" ).submit(function( event ) {
+		event.preventDefault();
+
+		var taskData = {};
+		$.each($( this ).serializeArray(), function( i, v ) {
+			taskData[v.name] = v.value;
+		});
+
+		if( taskData["descr"] != "" ) {
+			var newTask = new Task( taskData );
+			$("#addTaskError").empty();
+			$("#content").append(newTask.html);
+		} else if ( $("#addTaskError").is(":empty") ){
+			$( "#addTaskError" ).append("<div class='uk-width-1-1'>Cannot leave description blank.</div>");
+		}
+
+	});
+
+</script>
 
 </body>
 
