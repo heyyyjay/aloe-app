@@ -11,6 +11,8 @@
 	<link rel="stylesheet" href="lib/uikit-2.9.0/css/uikit.min.css" />
 	<script src="lib/uikit-2.9.0/js/uikit.min.js"></script>
 
+	<link rel="stylesheet" href="css/style.css" />
+
 	<script src="js/Task.js"></script>
 	<script src="js/TaskManager.js"></script>
 	<script src="js/setup.js"></script>
@@ -18,32 +20,57 @@
 </head>
 
 <body>
+<div class="uk-container uk-container-center">
+	<div class="uk-grid">
+		<div class="uk-width-1-1" id="content">
+			<h1 class="uk-width-1-1">Aloe App Task Manager</h1>
+			<div class="uk-width-1-1 uk-container uk-container-center">
+				<div class="uk-grid">
+					<div class="legend uk-width-1-6 uk-panel uk-panel-box">Categories...</div>
+					<div class="legend category-1 uk-width-1-6 uk-panel uk-panel-box">Finances</div>
+					<div class="legend category-2 uk-width-1-6 uk-panel uk-panel-box">Programming</div>
+					<div class="legend category-3 uk-width-1-6 uk-panel uk-panel-box">Linked Ladies</div>
+					<div class="legend category-4 uk-width-1-6 uk-panel uk-panel-box">Work</div>
+					<div class="legend category-5 uk-width-1-6 uk-panel uk-panel-box">Miscellaneous</div>
+				</div>
+				<br />
+			</div>
+		</div>
 
-<div class="uk-grid" id="content">
-	<h1 class="uk-width-1-1">Aloe App Task Manager</h1>
+		<div id="addTaskError" class="uk-width-1-1"></div>
+		<form class="uk-form uk-width-1-1 uk-grid uk-grid-small">
+			<div class="uk-width-1-10">
+				<select class="uk-width-1-1" name="priority">
+				    <option value="high">High</option>
+				    <option value="mid" selected="selected">Mid</option>
+				    <option value="low">Low</option>
+				</select>
+			</div>
+			<div class="uk-width-6-10">
+				<input class=" uk-width-1-1" type="text" name="descr" placeholder="description" id="descr">
+			</div>
+			<div class="uk-width-2-10">
+				<select class="uk-width-1-1" name="category">
+				    <option class="category-1" value="1" selected="selected">Finances</option>
+				    <option value="2">Programming</option>
+				    <option value="3">Linked Ladies</option>
+				    <option value="4">Work</option>
+				    <option value="5">Miscellaneous</option>
+				</select>
+			</div>
+			<div class="uk-width-1-10">
+				<button id="addTask" class="uk-button uk-width-1-1" type="submit" name="addTask"><i class="uk-icon-plus"></i> Add</button>
+			</div>
+		</form>
+	</div>
 </div>
 
-<form class="uk-form">
-	<div id="addTaskError"></div>
-	<select name="priority">
-	    <option value="high">High</option>
-	    <option value="mid" selected="selected">Mid</option>
-	    <option value="low">Low</option>
-	</select>
-	<input type="text" name="descr" placeholder="description" id="descr">
-	<select name="category">
-	    <option value="0" selected="selected">Purple</option>
-	    <option value="1">Green</option>
-	    <option value="2">Blue</option>
-	    <option value="3">Yellow</option>
-	    <option value="4">Pink</option>
-	    <option value="5">Orange</option>
-	</select>
-	<button id="addTask" class="uk-button" type="submit" name="addTask"><i class="uk-icon-plus"></i> Add</button>
-</form>
-
-
 <script>
+$(document).ready(function(){
+	var appContainer = $("#content");
+	var taskManager = new TaskManager();
+
+	appContainer.append(taskManager.html);
 
 	$( "form" ).submit(function( event ) {
 		event.preventDefault();
@@ -54,14 +81,16 @@
 		});
 
 		if( taskData["descr"] != "" ) {
-			var newTask = new Task( taskData );
+			var taskId = taskData["priority"] + taskManager.taskGroupIds[taskData["priority"]].length;
+			var newTask = new Task( taskData, taskId );
 			$("#addTaskError").empty();
-			$("#content").append(newTask.html);
+			taskManager.addTask(newTask);
 		} else if ( $("#addTaskError").is(":empty") ){
-			$( "#addTaskError" ).append("<div class='uk-width-1-1'>Cannot leave description blank.</div>");
+			$( "#addTaskError" ).append("<div>** Cannot leave description blank. **</div>");
 		}
 
 	});
+})
 
 </script>
 
