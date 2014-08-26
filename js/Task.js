@@ -26,6 +26,7 @@ Task.prototype.createHtml = function() {
 		"onclick": "checkOff(" + this.taskId + "Descr)"
 	});
 	check.append(box);
+	html.append(check);
 
 	html.append($("<div>", {
 		id: this.taskId + "Descr",
